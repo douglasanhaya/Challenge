@@ -3,7 +3,7 @@
 import elements from "../elements/elements";
 
 const Elements = new elements();
- 
+
 
 describe('Nesse parte teremos que desenvolver um projeto para testar vários aspectos da página Beta da Coodesh:', () => {
 
@@ -24,6 +24,11 @@ describe('Nesse parte teremos que desenvolver um projeto para testar vários asp
             cy.get("#content > div > div > div > div.text-center.text-lg-left.space-top-2.col-lg-6 > div > h1")
                 .contains("Conectamos developers validados às empresas")
                 .should('be.visible');
+
+            cy.wait(3000);
+
+            cy.get(Elements.aceitarCookies())
+                .click();
         });
     })
 
@@ -31,7 +36,6 @@ describe('Nesse parte teremos que desenvolver um projeto para testar vários asp
         cy.get(Elements.btnVerVagasHome())
             .click();
     })
-
 
     it('Um vez na tela de vagas, nosso sistema de teste automatizado terá que buscar por uma empresa onde terá um ou mais resultados de vagas', () => {
         cy.get(Elements.primeiraEmpresaListagemVagas()).invoke('text').then((pEmpresa) => {
@@ -44,32 +48,33 @@ describe('Nesse parte teremos que desenvolver um projeto para testar vários asp
                 .click({ force: true });
 
             cy.contains('Ver Vaga');
-        });
 
-
-        it('Depois obter o resultado, deveremos abrir a vaga e revisar se o carregamento é realizado com sucesso ou não;', () => {
-            cy.get(Elements.btnVisualizarDetalheVaga())
-                .click();
-
-            cy.get(Elements.btnTenhoInteresse())
-                .contains("Tenho Interesse")
-                .should('be.visible');
-
-            cy.contains('Ver empresa');
-
-            cy.contains('Descrição:');
-
-        })
-
-        it('Por último, precisamos saber se o sistema de candidatar está funcionando e para isso é necessário clicar no botão Candidatar-se e revisar se abriu o modal corretamente.', () => {
-            cy.get(Elements.btnTenhoInteresse())
-                .click();
-
-            cy.contains('NOME COMPLETO*:');
-
-            cy.get(Elements.inputNomeCadVaga())
-                .should('be.visible');
         })
     })
-})
 
+    it('Depois obter o resultado, deveremos abrir a vaga e revisar se o carregamento é realizado com sucesso ou não;', () => {
+        cy.get(Elements.btnVisualizarDetalheVaga())
+            .click();
+
+        cy.get(Elements.btnVisualizarDetalheVaga())
+            .click();
+
+        cy.get(Elements.btnTenhoInteresse())
+            .contains("Tenho Interesse")
+            .should('be.visible');
+
+        cy.contains('Ver empresa');
+
+        cy.contains('Descrição:');
+    })
+
+    it('Por último, precisamos saber se o sistema de candidatar está funcionando e para isso é necessário clicar no botão Candidatar-se e revisar se abriu o modal corretamente.', () => {
+        cy.get(Elements.btnTenhoInteresse())
+            .click();
+
+        cy.contains('Nome Completo');
+
+        cy.get(Elements.inputNomeCadVaga())
+            .should('be.visible');
+    })
+})
