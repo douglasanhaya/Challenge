@@ -56,9 +56,6 @@ describe('Nesse parte teremos que desenvolver um projeto para testar vários asp
         cy.get(Elements.btnVisualizarDetalheVaga())
             .click();
 
-        cy.get(Elements.btnVisualizarDetalheVaga())
-            .click();
-
         cy.get(Elements.btnTenhoInteresse())
             .contains("Tenho Interesse")
             .should('be.visible');
